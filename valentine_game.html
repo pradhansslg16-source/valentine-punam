@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Punam's Valentine Surprise 💖</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    overflow: hidden;
+    text-align: center;
+    color: white;
+}
+
+h1 {
+    margin-top: 30px;
+    font-size: 32px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    background: white;
+    color: #ff4f81;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+#message, #gameArea, #finalMessage {
+    display: none;
+    margin-top: 20px;
+}
+
+#gameArea {
+    position: relative;
+    height: 300px;
+    border: 2px dashed white;
+    margin: 20px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.heart {
+    position: absolute;
+    font-size: 30px;
+    cursor: pointer;
+    animation: float 4s linear infinite;
+}
+
+@keyframes float {
+    from { top: 100%; }
+    to { top: -10%; }
+}
+
+.score {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+#finalMessage {
+    font-size: 22px;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Valentine's Day My Love 💖</h1>
+<h2>For My Beautiful Wife, Punam</h2>
+
+<button onclick="showMessage()">Open Your Surprise 🎁</button>
+
+<div id="message">
+    <p>You are the love of my life, my happiness, my forever. 💕</p>
+    <button onclick="startGame()">Play a Cute Love Game 🎮</button>
+</div>
+
+<div id="gameArea">
+</div>
+
+<div class="score">Hearts Collected: <span id="score">0</span></div>
+
+<div id="finalMessage">
+    💍 No matter how many hearts I collect,  
+    my heart belongs only to you, Punam ❤️  
+    I love you forever!
+</div>
+
+<script>
+let score = 0;
+let gameInterval;
+
+function showMessage() {
+    document.getElementById("message").style.display = "block";
+}
+
+function startGame() {
+    document.getElementById("gameArea").style.display = "block";
+    spawnHeart();
+    gameInterval = setInterval(spawnHeart, 800);
+}
+
+function spawnHeart() {
+    let heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 90 + "%";
+
+    heart.onclick = function() {
+        score++;
+        document.getElementById("score").innerText = score;
+        heart.remove();
+
+        if(score >= 15) {
+            clearInterval(gameInterval);
+            document.getElementById("finalMessage").style.display = "block";
+        }
+    };
+
+    document.getElementById("gameArea").appendChild(heart);
+
+    setTimeout(() => {
+        if(heart.parentNode) heart.remove();
+    }, 4000);
+}
+</script>
+
+</body>
+</html>
